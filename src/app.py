@@ -22,6 +22,43 @@ app.mount("/static", StaticFiles(directory=os.path.join(Path(__file__).parent,
 # In-memory activity database
 activities = {
     "Chess Club": {
+        "name": "Chess Club",
+            },
+            "Basketball": {
+                "description": "Team-based basketball games and drills",
+                "schedule": "Mondays and Wednesdays, 4:00 PM - 5:30 PM",
+                "max_participants": 15,
+                "participants": []
+            },
+            "Soccer": {
+                "description": "Competitive soccer practice and matches",
+                "schedule": "Tuesdays and Thursdays, 4:00 PM - 5:30 PM",
+                "max_participants": 18,
+                "participants": []
+            },
+            "Drama Club": {
+                "description": "Theater productions and performance art",
+                "schedule": "Wednesdays, 3:30 PM - 5:00 PM",
+                "max_participants": 25,
+                "participants": []
+            },
+            "Visual Arts": {
+                "description": "Painting, drawing, and sculpture classes",
+                "schedule": "Fridays, 3:30 PM - 5:00 PM",
+                "max_participants": 16,
+                "participants": []
+            },
+            "Debate Team": {
+                "description": "Competitive debate and public speaking",
+                "schedule": "Mondays and Thursdays, 3:30 PM - 5:00 PM",
+                "max_participants": 10,
+                "participants": []
+            },
+            "STEM Robotics": {
+                "description": "Build and program robots for competitions",
+                "schedule": "Tuesdays and Thursdays, 4:00 PM - 5:30 PM",
+                "max_participants": 14,
+                "participants": [
         "description": "Learn strategies and compete in chess tournaments",
         "schedule": "Fridays, 3:30 PM - 5:00 PM",
         "max_participants": 12,
@@ -64,4 +101,6 @@ def signup_for_activity(activity_name: str, email: str):
 
     # Add student
     activity["participants"].append(email)
+    if email in activity["participants"]:
+        raise HTTPException(status_code=400, detail="Student is already signed up for this activity")
     return {"message": f"Signed up {email} for {activity_name}"}
